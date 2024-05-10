@@ -4,28 +4,37 @@
 // va applicato uno sconto del 37.893% per gli over 63.
 
 // Chiedi all'utente il numero di chilometri da percorrere
-const km = document.querySelector(".km").value;
+    const distanceElement = document.querySelector('input#user-distance');
+    const ageElement = document.querySelector('input#user-age');
 
-// Chiedi l'età del passeggero
-const eta = document.getElementById(".age").value;
+    const discountPercentageEl = document.querySelector('span#discount-percentage');
+    const priceDiscountEl = document.querySelector('span#price-discount');
+    const totalPriceEl = document.querySelector('span#total-price')
 
-// Calcola il prezzo totale del biglietto
-let prezzoBase = km * 0.267113; // prezzo base in base ai chilometri
-let sconto = 0; // inizializza lo sconto a 0
+    document.querySelector('#ticket-generator').addEventListener('click', function(){
+        const distance = Number.parseFloat(distanceElement.value, 10);
+        const age = Number.parseInt(ageElement.value, 10);
+    
+    if ( isNaN(distance) || isNaN(age)){
+        console.error('Given inputs are not numbers');
+    } else {
 
-// Applica lo sconto in base all'età del passeggero
-if (eta < 21) {
-    // sconto del 24.552% per gli under 21
-    sconto = prezzoBase * 0.24552;
-} else if (eta > 63) {
-    // sconto del 37.893% per gli over 63
-    sconto = prezzoBase * 0.37893;
-}
+        const pricePerUnit = 0.267113;
+        let discount = 0;
 
-// Calcola il prezzo totale del biglietto dopo lo sconto
-let prezzoTotale = prezzoBase - sconto;
+        if (age>=63) {
+            discount = 37.893
+        } else if (age < 21) {
+            discount = 24.552;
+        }
 
-// Mostra il prezzo totale del biglietto
-document.getElementById("prezzoOutput").innerHTML = "Il prezzo totale del biglietto è: " + prezzoTotale.toFixed(2) + " €";
+        let totalDiscount = (pricePerUnit * distance) / 100 * discount;
+        let total = (pricePerUnit * distance) - totalDiscount;
 
-console.log("Il prezzo totale del biglietto è: " + prezzoTotale.toFixed(2) + " €");
+        discountPercentageEl.innerHTML = discount + '%';
+        priceDiscountEl.innerHTML = totalDiscount.toFixed(2) + '$';
+        totalPriceEl.innerHTML = total.toFixed(2) + '$';
+
+        console.log(total, totalDiscount);
+    }
+});

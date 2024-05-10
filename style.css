@@ -1,0 +1,31 @@
+div.input-group {
+    display: flex;
+    flex-direction: column;
+}
+
+div.input-group label,
+div.input-group input {
+    margin-bottom: 1rem;
+}
+
+div.input-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+button {
+    background-color: yellow;
+    border: 1px solid white;
+    color: white;
+    padding: .5rem 1rem;
+    border-radius: .5rem;
+}
+
+button:hover {
+    background-color: red;
+}
+
+button:active {
+    background-color: red;
+}
